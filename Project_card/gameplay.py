@@ -63,7 +63,10 @@ def on_mouse_down(pos,button):
     if pos in Ignore:
         return 
     if button == mouse.LEFT and (pos):
-        coords =
+        coords = findTile(pos)
+        if coords not in Status:
+            Status.append(coords)
+            if len(Status) == 1
 
 
 

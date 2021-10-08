@@ -66,9 +66,16 @@ def on_mouse_down(pos,button):
         coords = findTile(pos)
         if coords not in Status:
             Status.append(coords)
-            if len(Status) == 1
-
-
-
-
-
+            if len(Status) == 1:
+                pass
+            elif len(Status) == 2:
+                (x1, y1), (x2, y2) = Status
+                if board[x1][y1].image_name == board[x2][y2].image_name:
+                    print("Success sound")
+                    for pos in Status:
+                        Ignore.append(pos)    
+                else:
+                    print("Failure sound")
+                clock.schedule_unique(next_turn, 60.0)
+def next_turn():
+    del STATUS[:]

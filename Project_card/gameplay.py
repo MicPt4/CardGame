@@ -1,33 +1,71 @@
 import pgzrun
-
-#Object
-card01 = Actor ('demon01')
-card01.pos =  100 ,100 
-
+import random 
+import time
 
 WIDTH = 800
 HEIGHT = 600
 
+#object 
+back_card = Actor('behind',(50,50))
+back_card.topleft = (0,0)
+card01 = Actor('demon01',(50,50))
+card01.topleft = (0,0)
 
 
+# all of values 
+Col = 2
+Row = 2
+Imsize = 200
+Status =[]
+Ignore = []
 
-def  draw():
+START_IMAGES= [ "im"+str(i+1) for i in range(Col*Row//2)]*2
+random.shuffle(START_IMAGES)
+
+Status =[]
+board = []
+for row in range (Row):
+    new_row = []
+    for col in range (col):
+        image_name = START_IMAGES.pop()
+        temp = Actor(image_name,(col*Imsize, row*Imsize))
+        temp.image_name = image_name
+        temp.topleft = (col*Imsize,row*Imsize)
+        new_row.append(temp)
+board.append(new_row)
+
+def draw ():
     screen.clear()
-    card01.draw()
-    card02.draw()
-    card03.draw()
-    card04.draw()
-    card05.draw()
+    for row in range (Row):
+        for col in range (col):
+            if (row,col) in Ignore:
+                back_card.topleft =  Imsize*col , Imsize*row 
+                back_card.draw()
+            elif (row,col) in Status :
+                board[row][col].draw()
+            else:
+              card01.topleft =  Imsize*col , Imsize*row 
+              card01.draw()
+
+
+def findTile(pos):
+    y,x = pos 
+    result = x // Imsize , y // Imsize
+    return result
+
+def showTile():
+    pass
+
+
+def on_mouse_down(pos,button):
+    if len(Status) == 2:
+        return
+    if pos in Ignore:
+        return 
+    if button == mouse.LEFT and (pos):
+        coords =
 
 
 
 
 
-def on_mouse_down(pos,):
-    if card01.collidepiont(pos,card01):
-        print('Great')
-    else:
-      print('Miss')  
-
-
-pgzrun.go()

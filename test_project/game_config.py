@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Sep 22 11:40:09 2020
-
-@author: Mansi
-"""
 import os
 
 IMAGE_SIZE = 150

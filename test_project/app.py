@@ -1,15 +1,9 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Sep 22 11:40:09 2020
-
-@author: Mansi
-"""
 import pygame
 import game_config as gc
 
 from pygame import display, event, image
 from time import sleep
-from animal import Animal
+from demon import Demon
 
 def find_index_from_xy(x, y):
     row = y // gc.IMAGE_SIZE
@@ -23,7 +17,7 @@ screen = display.set_mode((gc.SCREEN_SIZE, gc.SCREEN_SIZE))
 matched = image.load('other_assets/matched.png')
 background = image.load('other_assets/backgroundx.png')
 running = True
-tiles = [Animal(i) for i in range(0, gc.NUM_TILES_TOTAL)]
+tiles = [Demon(i) for i in range(0, gc.NUM_TILES_TOTAL)]
 current_images_displayed = []
 
 while running:

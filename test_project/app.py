@@ -1,7 +1,7 @@
 import pygame
 import game_config as gc
-
 from pygame import display, event, image
+
 from time import sleep
 from demon import Demon
 
@@ -41,9 +41,15 @@ while running:
                     current_images_displayed.append(index)
 
     # Display animals
+
     screen.fill((0, 0, 0))
     screen.blit(background ,(100,300))
     total_skipped = 0
+    # Score
+    score = 0
+    myfont = pygame.font.SysFont("GG25", 35)
+    scoretext = myfont.render("Score = "+str(score),1,(125,125,125))
+    screen.blit(scoretext, (40, 800))
 
     for i, tile in enumerate(tiles):
         current_image = tile.image if i in current_images_displayed else tile.box
@@ -57,9 +63,12 @@ while running:
     # Check for matches
     if len(current_images_displayed) == 2:
         idx1, idx2 = current_images_displayed
+
         if tiles[idx1].name == tiles[idx2].name:
             tiles[idx1].skip = True
             tiles[idx2].skip = True
+            score = score +1
+        
             # display matched message
             sleep(0.2)
             screen.blit(matched, (100, 200))
@@ -69,5 +78,9 @@ while running:
 
     if total_skipped == len(tiles):
         running = False
+
+
+
+
 
 print('Goodbye!')

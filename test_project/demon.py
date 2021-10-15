@@ -6,8 +6,10 @@ from pygame import image, transform
 
 demons_count = dict((a, 0) for a in gc.ASSET_FILES)
 
+back_card = image.load('other_assets/behind.png')
+
 def available_demons():
-    return [animal for animal, count in demons_count.items() if count < 2]
+    return [demon for demon, count in demons_count.items() if count < 2]
 
 class Demon:
     def __init__(self, index):
@@ -20,6 +22,6 @@ class Demon:
         self.image = image.load(self.image_path)
         self.image = transform.scale(self.image, (gc.IMAGE_SIZE - 2 * gc.MARGIN, gc.IMAGE_SIZE - 2 * gc.MARGIN))
         self.box = self.image.copy()
-        self.box.fill((200, 200, 200))
-
+        self.box = transform.scale(back_card,(125 ,125))
+        
         demons_count[self.name] += 1

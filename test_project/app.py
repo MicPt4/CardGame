@@ -67,7 +67,7 @@ while running:
         if tiles[idx1].name == tiles[idx2].name:
             tiles[idx1].skip = True
             tiles[idx2].skip = True
-            score = score +1
+            score +=1
         
             # display matched message
             sleep(0.2)

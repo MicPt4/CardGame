@@ -1,7 +1,7 @@
 import pygame
 import game_config as gc
-from pygame import display, event, image
 
+from pygame import display, event, image
 from time import sleep
 from demon import Demon
 
@@ -19,6 +19,11 @@ background = image.load('other_assets/backgroundx.png')
 running = True
 tiles = [Demon(i) for i in range(0, gc.NUM_TILES_TOTAL)]
 current_images_displayed = []
+score = 0
+colorx = (255, 45, 123)
+frame_count = 0
+frame_rate = 60
+start_time = 90
 
 while running:
     current_events = event.get()
@@ -40,17 +45,35 @@ while running:
                 else:
                     current_images_displayed.append(index)
 
-    # Display animals
-
+    # Display 
     screen.fill((0, 0, 0))
     screen.blit(background ,(100,300))
     total_skipped = 0
-    # Score
-    score = 0
+    # Score   
     myfont = pygame.font.SysFont("GG25", 35)
-    scoretext = myfont.render("Score = "+str(score),1,(125,125,125))
+    scoretext = myfont.render("Score = "+str(score),1,(255, 45, 123))
     screen.blit(scoretext, (40, 800))
-
+    #Time
+    clock = pygame.time.Clock()
+    font = pygame.font.Font(None, 35)
+    total_seconds = frame_count // frame_rate
+    minutes = total_seconds // 60
+    seconds = total_seconds % 60
+    output_string = "Time: {0:02}:{1:02}".format(minutes, seconds)
+    text = font.render(output_string, True, colorx)
+    screen.blit(text, [200, 800])
+    total_seconds = start_time - (frame_count // frame_rate)
+    if total_seconds < 0:
+        total_seconds = 0
+    minutes = total_seconds // 60
+    seconds = total_seconds % 60
+    output_string = "Time left: {0:02}:{1:02}".format(minutes, seconds)    
+    text = font.render(output_string, True, colorx)
+    screen.blit(text, [500, 800])
+    frame_count += 1
+    clock.tick(frame_rate)
+    
+    #
     for i, tile in enumerate(tiles):
         current_image = tile.image if i in current_images_displayed else tile.box
         if not tile.skip:
@@ -63,24 +86,19 @@ while running:
     # Check for matches
     if len(current_images_displayed) == 2:
         idx1, idx2 = current_images_displayed
-
         if tiles[idx1].name == tiles[idx2].name:
+            score += 1
             tiles[idx1].skip = True
             tiles[idx2].skip = True
-            score +=1
-        
+            
             # display matched message
             sleep(0.2)
-            screen.blit(matched, (100, 200))
+            screen.blit(matched, (200, 200))
             display.flip()
             sleep(0.5)
             current_images_displayed = []
 
     if total_skipped == len(tiles):
         running = False
-
-
-
-
 
 print('Goodbye!')

@@ -105,6 +105,6 @@ while running:
     if total_skipped == len(tiles):
         running = False
 
-print("Score = "+str(score))
+print("YOUR SCORE IS " +str(score))
 
 

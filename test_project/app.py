@@ -25,7 +25,7 @@ score = 0
 colorx = (186, 186, 186)
 frame_count = 0
 frame_rate = 60
-start_time = 2
+start_time = 10
 pygame.mixer.init()
 pygame.mixer.music.load('sound/background.mp3')
 pygame.mixer.music.play()
@@ -56,12 +56,12 @@ while running:
     screen.blit(background ,(0,0))
     total_skipped = 0
     # Score   
-    myfont = pygame.font.SysFont("GG25", 35)
+    myfont = pygame.font.SysFont("GG25", 45)
     scoretext = myfont.render("Score = "+str(score),1,(186, 186, 186))
     screen.blit(scoretext, (150, 800))
     #Time
     clock = pygame.time.Clock()
-    font = pygame.font.Font(None, 35)
+    font = pygame.font.Font(None, 45)
     total_seconds = start_time - (frame_count // frame_rate)
     if total_seconds < 0:
         total_seconds = 0
@@ -74,8 +74,7 @@ while running:
     clock.tick(frame_rate)
     if total_seconds == 0 :
       running = False  
-      print("GAMEOVER")
-    
+     
     for i, tile in enumerate(tiles):
         current_image = tile.image if i in current_images_displayed else tile.box
         if not tile.skip:
@@ -105,5 +104,7 @@ while running:
 
     if total_skipped == len(tiles):
         running = False
+
+print("Score = "+str(score))
 
 
